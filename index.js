@@ -198,20 +198,19 @@ app.get('/members', (req,res) => {
     `
 
     var randomIndex = Math.floor(Math.random() * 3);
-    var picture = "";
+  
     if (randomIndex == 1) {
-      picture = "<img src='/angy.jpg' style='width:250px;'>";
+      hello += "<img src='/angy.jpg' style='width:250px;'>";
     } else if (randomIndex == 2) {
-      picture = "<img src='/MEOWSHY.jpg' style='width:250px;'>";
+      hello += "<img src='/MEOWSHY.jpg' style='width:250px;'>";
     } else {
-      picture = "<img src='/smurfing.jpg' style='width:250px;'>";
+      hello += "<img src='/smurfing.jpg' style='width:250px;'>";
     }
-
-    var logout = `
+    hello += `
     <button><a href="/logout">Sign out</a></button>
     `
 
-    res.send(hello + "<br>" + picture + "<br>" + logout);
+    res.send(hello);
   }
 })
 
