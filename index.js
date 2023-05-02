@@ -50,14 +50,14 @@ app.use(session({
 app.get('/', (req,res) => {
   if (!req.session.authenticated) {
     var html = `
-      <button><a href="/signup">Sign Up</a></button>
+      <button><a href="/signup">Sign Up</a></button><br>
       <button><a href="/login">Log In</a></button>
     `;
     res.send(html);
   } else {
     var html = `
-    Hello, ${mongodb_user};
-    <button><a href="/members">Go to Members Area</a></button>
+    Hello, ${req.session.name}<br>
+    <button><a href="/members">Go to Members Area</a></button><br>
     <button><a href="/logout">Logout</a></button>
     `;
     res.send(html);
@@ -66,11 +66,11 @@ app.get('/', (req,res) => {
 
 app.get('/signup', (req,res) => {
   var html = `
-    <p>create user</p>
+    create user
     <form action='/submitInfo' method='post'>
-      <input name='name' type='text' placeholder='name'>
-      <input name='email' type='text' placeholder='email'>
-      <input name='password' type='text' placeholder='password'>
+      <input name='name' type='text' placeholder='name'><br>
+      <input name='email' type='text' placeholder='email'><br>
+      <input name='password' type='text' placeholder='password'><br>
       <button>Submit</button>
     </form>
   `;
@@ -79,10 +79,10 @@ app.get('/signup', (req,res) => {
 
 app.get('/login', (req,res) => {
   var html = `
-    <p>log in</p>
+    log in
     <form action='/loginSubmit' method='post'>
-      <input name='email' type='text' placeholder='email'>
-      <input name='password' type='text' placeholder='password'>
+      <input name='email' type='text' placeholder='email'><br>
+      <input name='password' type='text' placeholder='password'><br>
       <button>Submit</button>
     </form>
   `;
@@ -193,11 +193,25 @@ app.get('/members', (req,res) => {
   if (!req.session.authenticated) {
     res.redirect("/");
   } else {
-    var html = `
+    var hello = `
     Hello, ${req.session.name}
+    `
+
+    var randomIndex = Math.floor(Math.random() * 3);
+    var picture = "";
+    if (randomIndex == 1) {
+      picture = "<img src='./angy.jpg' style='width:250px;'>";
+    } else if (randomIndex == 2) {
+      picture = "<img src='./MEOWSHY.jpg' style='width:250px;'>";
+    } else {
+      picture = "<img src='./smurfing.jpg' style='width:250px;'>";
+    }
+
+    var logout = `
     <button><a href="/logout">Sign out</a></button>
     `
-    res.send(html);
+
+    res.send(hello + "<br>" + picture + "<br>" + logout);
   }
 })
 
